@@ -23,5 +23,10 @@ namespace hear_api.HomesEngland.Gateway
             _assets.Add(asset);
             return _assets.Count-1;
         }
+
+        public Task<Asset[]> GetAssets(int[] ids)
+        {
+            return null;
+        }
     }
 }

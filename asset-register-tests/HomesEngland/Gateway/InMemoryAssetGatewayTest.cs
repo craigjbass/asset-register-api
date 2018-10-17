@@ -53,6 +53,12 @@ namespace asset_register_tests.HomesEngland.Gateway
            Assert.True(returnedAsset.Name == guid);
         }
 
+
+        [Test]
+        public async Task GetItemsFindsCorrectAssetsFromIDs()
+        {
+            Assert.True(1==3);
+        }
        
         
         [Test]
