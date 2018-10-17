@@ -1,4 +1,4 @@
-COMPOSE = docker-compose -f hear-api/docker-compose.yml
+COMPOSE = docker-compose -f asset-register-api/docker-compose.yml
 
 .PHONY: docker-build
 docker-build:
