@@ -20,7 +20,7 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset
         protected Mock<IAssetGateway> CreateMockToReturnAssetWithName(int id, string assetName)
         {
             Mock<IAssetGateway>  mock = new Mock<IAssetGateway>();
-            mock.Setup(gateway => gateway.GetAsset(id)).Returns(() => new Asset()
+            mock.Setup(gateway => gateway.GetAsset(id)).ReturnsAsync(() => new Asset()
             {
                 Name = assetName
             });

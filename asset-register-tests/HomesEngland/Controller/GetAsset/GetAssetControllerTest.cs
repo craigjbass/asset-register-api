@@ -19,7 +19,7 @@ namespace asset_register_tests.HomesEngland.Controller.GetAsset
         public void SetUp()
         {
             _mock = new Mock<IGetAssetUseCase>();  
-            _mock.Setup(useCase => useCase.Execute(AssetId)).Returns(() => new Asset()
+            _mock.Setup(useCase => useCase.Execute(AssetId)).ReturnsAsync(() => new Asset()
             {
                 Name = AssetName
             });

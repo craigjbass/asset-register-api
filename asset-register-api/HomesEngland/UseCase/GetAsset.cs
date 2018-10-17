@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.HomesEngland.Exception;
 using asset_register_api.Interface;
@@ -12,9 +13,9 @@ namespace asset_register_api.HomesEngland.UseCase
         {
             Gateway = gateway;
         }
-        public Asset Execute(int id)
+        public async Task<Asset> Execute(int id)
         {
-            return Gateway.GetAsset(id) ?? throw new NoAssetsException();
+            return await Gateway.GetAsset(id) ?? throw new NoAssetsException();
         }
     }
 }

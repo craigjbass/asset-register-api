@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Interface;
 using Moq;
 using NUnit.Framework;
@@ -18,9 +20,9 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithAsset
         }
         
         [SetUp]
-        void Setup()
+        async Task Setup()
         {
-            UseCase.Execute(AssetId);
+            await UseCase.Execute(AssetId);
         }
 
         [Test]
@@ -30,9 +32,10 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithAsset
         }
 
         [Test]
-        public void ItReturnsFoundAsset()
+        public async Task ItReturnsFoundAsset()
         {
-            Assert.True(UseCase.Execute(AssetId).Name ==AssetName);
+            Asset returnedAsset = await UseCase.Execute(AssetId);
+            Assert.True(returnedAsset.Name ==AssetName);
         } 
     }
 }

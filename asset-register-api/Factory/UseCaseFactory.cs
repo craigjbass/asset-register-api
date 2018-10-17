@@ -7,10 +7,6 @@ namespace asset_register_api.Factory
 {
     public class UseCaseFactory:IUseCaseFactory
     {
-        public UseCaseFactory()
-        {
-            Console.WriteLine(":(");
-        }
         readonly Dictionary<Type,object> _useCases = new Dictionary<Type, object>();
         
         public T GetUseCase <T> ()
