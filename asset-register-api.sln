@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hear-api-tests", "hear-api-tests\hear-api-tests.csproj", "{149ACA25-239C-4FAF-88FC-A5A15F0AD4BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asset-register-tests", "asset-register-tests\asset-register-tests.csproj", "{149ACA25-239C-4FAF-88FC-A5A15F0AD4BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hear-api", "hear-api\hear-api.csproj", "{8B2F1614-46C7-4FD3-9EF8-03E894664B0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "asset-register-api", "asset-register-api\asset-register-api.csproj", "{8B2F1614-46C7-4FD3-9EF8-03E894664B0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

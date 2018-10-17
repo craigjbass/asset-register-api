@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
-        <RootNamespace>hear_api_tests</RootNamespace>
+        <RootNamespace>asset_register_tests</RootNamespace>
 
         <IsPackable>false</IsPackable>
     </PropertyGroup>
@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\hear-api\hear-api.csproj" />
+      <ProjectReference Include="..\asset-register-api\asset-register-api.csproj" />
     </ItemGroup>
 
     <ItemGroup>
