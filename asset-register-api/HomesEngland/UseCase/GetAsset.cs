@@ -1,10 +1,11 @@
-using hear_api.HomesEngland.Domain;
-using hear_api.HomesEngland.Exception;
-using hear_api.Interface;
+using asset_register_api.HomesEngland.Domain;
+using asset_register_api.HomesEngland.Exception;
+using asset_register_api.Interface;
+using asset_register_api.Interface.UseCase;
 
-namespace hear_api.HomesEngland.UseCase
+namespace asset_register_api.HomesEngland.UseCase
 {
-    public class GetAsset 
+    public class GetAsset :IGetAssetUseCase
     {
         private IAssetGateway Gateway { get; }
         public GetAsset(IAssetGateway gateway)

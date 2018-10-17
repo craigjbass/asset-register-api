@@ -1,19 +1,11 @@
-using hear_api.Interface;
-using Moq;
 using NUnit.Framework;
 
-namespace hear_api_tests.HomesEngland.UseCase
+namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithAsset.Examples
 {
     [TestFixture]
     public class GivenAssetExampleOne : GivenAsset
     {
-        protected override Mock<IAssetGateway> Mock { get; }
-        
-        public GivenAssetExampleOne()
-        {
-            AssetID = 3;
-            AssetName = "Atticus";
-            Mock = CreateMockToReturnAssetWithName(AssetID, AssetName);
-        }
+        protected sealed override int AssetId => 3;
+        protected sealed override string AssetName => "Atticus";
     }
 }

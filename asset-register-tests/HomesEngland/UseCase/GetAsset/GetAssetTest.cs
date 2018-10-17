@@ -1,21 +1,20 @@
-using hear_api.HomesEngland.Domain;
-using hear_api.HomesEngland.UseCase;
-using hear_api.Interface;
+using asset_register_api.Interface;
+using asset_register_api.HomesEngland.Domain;
 using Moq;
 using NUnit.Framework;
 
-namespace hear_api_tests.HomesEngland.UseCase
+namespace asset_register_tests.HomesEngland.UseCase.GetAsset
 {
     [TestFixture]
     public abstract class GetAssetTest
     {
-        protected GetAsset UseCase { get; private set; }
+        protected asset_register_api.HomesEngland.UseCase.GetAsset UseCase { get; private set; }
         protected abstract IAssetGateway Gateway { get; }
             
         [SetUp]
         public void SetUp()
         {
-            UseCase = new GetAsset(Gateway);
+            UseCase = new asset_register_api.HomesEngland.UseCase.GetAsset(Gateway);
         }
         
         protected Mock<IAssetGateway> CreateMockToReturnAssetWithName(int id, string assetName)

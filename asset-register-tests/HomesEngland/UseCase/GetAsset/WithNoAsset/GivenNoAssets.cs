@@ -1,9 +1,9 @@
-using hear_api.HomesEngland.Exception;
-using hear_api.Interface;
+using asset_register_api.HomesEngland.Exception;
+using asset_register_api.Interface;
 using Moq;
 using NUnit.Framework;
 
-namespace hear_api_tests.HomesEngland.UseCase
+namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithNoAsset
 {
     [TestFixture]
     public class GivenNoAssets : GetAssetTest

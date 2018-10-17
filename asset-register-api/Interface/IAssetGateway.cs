@@ -1,6 +1,6 @@
-using hear_api.HomesEngland.Domain;
+using asset_register_api.HomesEngland.Domain;
 
-namespace hear_api.Interface
+namespace asset_register_api.Interface
 {
     public interface IAssetGateway
     {
