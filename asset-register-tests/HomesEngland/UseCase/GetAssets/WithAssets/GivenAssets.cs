@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
@@ -41,30 +40,18 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAssets.WithAssets
         [Test]
         public async Task WillReturnGatewayAssets()
         {
-            Asset[] returnedAssets = await UseCase.Execute(AssetsIds);
+            Dictionary<string, string>[] returnedAssets = await UseCase.Execute(AssetsIds);
             for (int i = 0; i < AssetsToReturn.Length; i++)
             {
-                Console.WriteLine("Checking "+AssetsToReturn[i].Name);
-                foreach (var returnedAsset in returnedAssets)
-                {
-                    Console.WriteLine(returnedAsset.Name);
-                }
-                Assert.True(returnedAssets.Any(_ => _.Name == AssetsToReturn[i].Name));
+                Assert.True(returnedAssets.Any(_=>_.ContainsValue(AssetsToReturn[i].Name)));
             }
         }
         
         [Test]
         public async Task WillReturnCorrectCountOfAssets()
         {
-            Asset[] returnedAssets = await UseCase.Execute(AssetsIds);
-            Console.WriteLine("!!!" + returnedAssets.Length);
-            foreach (var returnedAsset in returnedAssets)
-            {
-                Console.WriteLine("____");
-                Console.WriteLine(returnedAsset.Name);
-            }
+            Dictionary<string, string>[] returnedAssets = await UseCase.Execute(AssetsIds);
             Assert.True(returnedAssets.Length == AssetsIds.Length);
-           
         }
         
     }

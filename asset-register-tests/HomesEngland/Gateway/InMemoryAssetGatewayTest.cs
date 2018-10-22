@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.HomesEngland.Exception;
@@ -50,14 +51,31 @@ namespace asset_register_tests.HomesEngland.Gateway
             };
             int assetId = await _assetGateway.AddAsset(assetToAdd);
             Asset returnedAsset = await _assetGateway.GetAsset(assetId);
-           Assert.True(returnedAsset.Name == guid);
+            Assert.True((string) returnedAsset.Name == guid);
         }
 
 
         [Test]
         public async Task GetItemsFindsCorrectAssetsFromIDs()
         {
-            Assert.True(1==3);
+            Dictionary<int,Asset> addedAssets = new Dictionary<int, Asset>();
+            for (int i = 0; i < 10; i++)
+            {
+                string guid = new Guid().ToString();
+                Asset assetToAdd = new Asset()
+                {
+                    Name = guid
+                };
+                int assetId = await _assetGateway.AddAsset(assetToAdd);
+                addedAssets.Add(assetId,assetToAdd);
+            }
+
+            Asset[] returnedAssets = await _assetGateway.GetAssets(addedAssets.Keys.ToArray());
+
+            for (int i = 0; i < returnedAssets.Length; i++)
+            {
+                Assert.True(addedAssets.Values.Any(_=> _.Name == returnedAssets[i].Name));
+            }
         }
        
         

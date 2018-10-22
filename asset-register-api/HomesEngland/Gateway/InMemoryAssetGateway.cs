@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.HomesEngland.Exception;
@@ -24,9 +25,14 @@ namespace hear_api.HomesEngland.Gateway
             return _assets.Count-1;
         }
 
-        public Task<Asset[]> GetAssets(int[] ids)
+        public async Task<Asset[]> GetAssets(int[] ids)
         {
-            return null;
+            List<Asset> returnList = new List<Asset>();
+            for (int i = 0; i < ids.Length; i++)
+            {
+                returnList.Add(await GetAsset(ids[i]));
+            }
+            return returnList.ToArray();
         }
     }
 }

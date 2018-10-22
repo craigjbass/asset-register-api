@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace asset_register_api.Interface.UseCase
 {
-    public interface IGetAssetUseCase
+    public interface IGetAssetsUseCase
     {
-        Task<Dictionary<string,string>> Execute(int id);
+        Task<Dictionary<string, string>[]> Execute(int[] id);
     }
 }

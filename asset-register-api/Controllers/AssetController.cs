@@ -1,4 +1,7 @@
-﻿using asset_register_api.Interface.UseCase;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using asset_register_api.Interface.UseCase;
 using Microsoft.AspNetCore.Mvc;
 
 namespace asset_register_api.Controllers
@@ -13,10 +16,22 @@ namespace asset_register_api.Controllers
             _assetUseCase = useCase;
         }
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public async Task<ActionResult<string>> Get(int id)
         { 
-            _assetUseCase.Execute(id);
-            return $"GetAsset use case executed with id: {id}";
+            Dictionary<string,string> result = await _assetUseCase.Execute(id);
+            return ConvertToJson(result);   
+        }
+
+        private static string ConvertToJson(Dictionary<string, string> result)
+        {
+            char quoteMark = Convert.ToChar(34);
+            string expectedResult = "{";
+            foreach (string key in result.Keys)
+            {
+                expectedResult += quoteMark + key + quoteMark + ":" + quoteMark + result[key] + quoteMark;
+            }
+            expectedResult += "}";
+            return expectedResult;
         }
     }
 }

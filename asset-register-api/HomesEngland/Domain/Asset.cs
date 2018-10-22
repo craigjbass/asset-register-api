@@ -6,10 +6,9 @@ namespace asset_register_api.HomesEngland.Domain
     {
         public string Name { get; set; }
 
-        public Dictionary<string, object> ToDictionary()
+        public Dictionary<string, string> ToDictionary()
         {
-    
-            return new Dictionary<string, object> {{"Name", Name}};
+            return new Dictionary<string, string> {{"Name", Name}};
         }
     }
 }

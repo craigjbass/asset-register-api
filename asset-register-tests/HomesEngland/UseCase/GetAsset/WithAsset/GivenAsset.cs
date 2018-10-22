@@ -35,8 +35,8 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithAsset
         [Test]
         public async Task ItReturnsFoundAsset()
         {
-            Dictionary<string,object> returnedAsset = await UseCase.Execute(AssetId);
-            Assert.True((string) returnedAsset["Name"] == AssetName);
+            Dictionary<string,string> returnedAsset = await UseCase.Execute(AssetId);
+            Assert.True(returnedAsset["Name"] == AssetName);
         } 
     }
 }
