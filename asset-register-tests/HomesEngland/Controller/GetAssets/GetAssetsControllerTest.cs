@@ -41,7 +41,6 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
         public async Task GetAssetControllerReturnsJson()
         {
             ActionResult<string> returnedData = await _controller.Get(AssetIds);
-            Console.WriteLine(returnedData.Value + " " + JsonResponse);
             Assert.True(returnedData.Value == JsonResponse);
         }
         
