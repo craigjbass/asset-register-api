@@ -15,8 +15,7 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets.Examples
             GetAsset("Ducks")
         };
         protected override int[] AssetIds  => new[]{99,123,4444,5123};
-
-        protected override string JsonResponse => "{"+Convert.ToChar(34)+"Assets"+Convert.ToChar(34)+":["
+        protected override string JsonResponse => "{\"Assets\":["
                                                   + GetJsonLine("Cats")+","
                                                   + GetJsonLine("Cows")+","
                                                   + GetJsonLine("Hats")+","

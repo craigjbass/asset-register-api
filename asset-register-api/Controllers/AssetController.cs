@@ -24,7 +24,7 @@ namespace asset_register_api.Controllers
 
         private static string ConvertToJson(Dictionary<string, string> result)
         {
-            char quoteMark = Convert.ToChar(34);
+            string quoteMark = "\"";
             string expectedResult = "{";
             foreach (string key in result.Keys)
             {

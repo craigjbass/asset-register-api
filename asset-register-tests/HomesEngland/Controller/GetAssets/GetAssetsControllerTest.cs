@@ -46,8 +46,7 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
         
         protected string GetJsonLine(string name)
         {
-            return "{" + Convert.ToChar(34) + "Name" + Convert.ToChar(34) + ":" +
-                   Convert.ToChar(34) + name + Convert.ToChar(34) + "}";
+            return "{\"Name\":\"" + name + "\"}";
         }
 
         protected Asset GetAsset(string name)

@@ -27,11 +27,10 @@ namespace asset_register_api.Controllers
 
         private static string GetAssetsJsonArray(Dictionary<string, string>[] results)
         {
-            char quoteMark = Convert.ToChar(34);
-            string expectedResult = "{" + quoteMark + "Assets" + quoteMark + ":[";
+            string expectedResult = "{\"" + "Assets\":[";
             foreach (var asset in results)
             {
-                expectedResult = GetJsonAsset(expectedResult, asset, quoteMark);
+                expectedResult = GetJsonAsset(expectedResult, asset);
             }
             expectedResult = RemoveLastComma(expectedResult) + "]}";
             return expectedResult;
@@ -42,12 +41,12 @@ namespace asset_register_api.Controllers
             return expectedResult.Remove(expectedResult.Length - 1);
         }
 
-        private static string GetJsonAsset(string expectedResult, Dictionary<string, string> asset, char quoteMark)
+        private static string GetJsonAsset(string expectedResult, Dictionary<string, string> asset)
         {
             expectedResult += "{";
             foreach (string key in asset.Keys)
             {
-                expectedResult += quoteMark + key + quoteMark + ":" + quoteMark + asset[key] + quoteMark + ",";
+                expectedResult += "\"" + key + "\":\"" + asset[key] + "\",";
             }
 
             expectedResult = RemoveLastComma(expectedResult) + "},";
