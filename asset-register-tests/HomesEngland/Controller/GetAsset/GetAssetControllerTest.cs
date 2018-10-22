@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using asset_register_api.Controllers;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Interface.UseCase;
@@ -18,11 +19,11 @@ namespace asset_register_tests.HomesEngland.Controller.GetAsset
         [SetUp]
         public void SetUp()
         {
-            _mock = new Mock<IGetAssetUseCase>();  
-            _mock.Setup(useCase => useCase.Execute(AssetId)).ReturnsAsync(() => new Asset()
+            _mock = new Mock<IGetAssetUseCase>();
+            _mock.Setup(useCase => useCase.Execute(AssetId)).ReturnsAsync(() => (new Asset()
             {
-                Name = AssetName
-            });
+                Name = "Asset"
+            }).ToDictionary());
             
             _controller = new AssetController(_mock.Object);
         }

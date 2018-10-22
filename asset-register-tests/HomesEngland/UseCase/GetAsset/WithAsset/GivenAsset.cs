@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Interface;
@@ -34,8 +35,8 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithAsset
         [Test]
         public async Task ItReturnsFoundAsset()
         {
-            Asset returnedAsset = await UseCase.Execute(AssetId);
-            Assert.True(returnedAsset.Name ==AssetName);
+            Dictionary<string,object> returnedAsset = await UseCase.Execute(AssetId);
+            Assert.True((string) returnedAsset["Name"] == AssetName);
         } 
     }
 }
