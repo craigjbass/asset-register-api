@@ -18,16 +18,15 @@ namespace asset_register_tests.HomesEngland.IntegrationTest
         public void SetUp()
         {
             IWebHostBuilder builder = new WebHostBuilder()
-                .UseContentRoot(GetWebMessengerRoot())
+                .UseContentRoot(GetRootPath())
                 .UseStartup<IntegrationTestStartup>();
 
-            Console.WriteLine(GetWebMessengerRoot() );
             Server = new TestServer(builder);
             Client = Server.CreateClient();
             Client.BaseAddress = new Uri("http://localhost:5000");
         }
 
-        private static string GetWebMessengerRoot() {
+        private static string GetRootPath() {
             return Path.GetFullPath (Path.Combine (AppContext.BaseDirectory, @"../../../../asset-register-api/"));
         }
         [TearDown]
