@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace hear_api.HomesEngland.Gateway
         readonly List<Asset> _assets = new List<Asset>();
         public async Task<Asset> GetAsset(int id)
         {
-            if (id > _assets.Count - 1 || id < 0 )
+            if (id<0 || id> (_assets.Count-1))
             {
                 throw new NoAssetException();
             }
@@ -30,9 +31,21 @@ namespace hear_api.HomesEngland.Gateway
             List<Asset> returnList = new List<Asset>();
             for (int i = 0; i < ids.Length; i++)
             {
-                returnList.Add(await GetAsset(ids[i]));
+                await AddAsset(ids, returnList, i);
             }
             return returnList.ToArray();
+        }
+
+        private async Task AddAsset(int[] ids, List<Asset> returnList, int i)
+        {
+            try
+            {
+                returnList.Add(await GetAsset(ids[i]));
+            }
+            catch (NoAssetException)
+            {
+                Console.WriteLine("Attempted to fetch asset that does not exist");
+            }
         }
     }
 }

@@ -13,9 +13,11 @@ namespace asset_register_api.Controllers
         private readonly IGetAssetsUseCase _assetsUseCase;
         public AssetsController(IGetAssetsUseCase useCase)
         {
+            Console.WriteLine(useCase);
             _assetsUseCase = useCase;
+            Console.WriteLine(_assetsUseCase);
         }
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<string>> Get(int[] ids)
         { 
             return GetExpectedResult( await _assetsUseCase.Execute(ids));
@@ -27,11 +29,17 @@ namespace asset_register_api.Controllers
 
         private static string GetAssetsJsonArray(Dictionary<string, string>[] results)
         {
-            string expectedResult = "{\"" + "Assets\":[";
+            if (results.Length == 0)
+            {
+                return "{}";
+            }
+            
+            string expectedResult = "{\"Assets\":[";
             foreach (var asset in results)
             {
                 expectedResult = GetJsonAsset(expectedResult, asset);
             }
+            
             expectedResult = RemoveLastComma(expectedResult) + "]}";
             return expectedResult;
         }

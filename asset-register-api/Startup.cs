@@ -25,11 +25,13 @@ namespace hear_api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IAssetGateway, InMemoryAssetGateway>();
             services.AddTransient<IGetAssetUseCase, GetAsset>();
+            services.AddTransient<IGetAssetsUseCase, GetAssets>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using asset_register_api.HomesEngland.Exception;
 using asset_register_api.Interface.UseCase;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,8 +19,17 @@ namespace asset_register_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<string>> Get(int id)
         { 
-            Dictionary<string,string> result = await _assetUseCase.Execute(id);
-            return ConvertToJson(result);   
+            Console.WriteLine("HELLO");
+            try
+            {
+                Dictionary<string,string> result = await _assetUseCase.Execute(id);
+                return ConvertToJson(result);   
+            }
+            catch (NoAssetsException)
+            {
+                return "{}";
+            }
+          
         }
 
         private static string ConvertToJson(Dictionary<string, string> result)

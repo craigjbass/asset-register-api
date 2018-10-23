@@ -17,11 +17,6 @@ namespace asset_register_api.HomesEngland.UseCase
         public async Task<Dictionary<string,string>> Execute(int id)
         {
             Asset asset = await Gateway.GetAsset(id);
-            if (asset == null)
-            {
-                throw new NoAssetsException();
-            }
-
             return asset.ToDictionary();
         }
     }
