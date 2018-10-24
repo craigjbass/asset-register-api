@@ -19,9 +19,9 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithNoAsset
         }
 
         [Test]
-        public async Task ItThrowsNoAssetsException()
+        public async Task ItThrowsNoAssetException()
         {
-            Assert.ThrowsAsync<NoAssetsException>(async () => await UseCase.Execute(id));
+            Assert.ThrowsAsync<NoAssetException>(async () => await UseCase.Execute(id));
         }
     }
 }

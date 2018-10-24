@@ -13,9 +13,7 @@ namespace asset_register_api.Controllers
         private readonly IGetAssetsUseCase _assetsUseCase;
         public AssetsController(IGetAssetsUseCase useCase)
         {
-            Console.WriteLine(useCase);
             _assetsUseCase = useCase;
-            Console.WriteLine(_assetsUseCase);
         }
         [HttpGet]
         public async Task<ActionResult<string>> Get(int[] ids)

@@ -19,13 +19,12 @@ namespace asset_register_api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<string>> Get(int id)
         { 
-            Console.WriteLine("HELLO");
             try
             {
                 Dictionary<string,string> result = await _assetUseCase.Execute(id);
                 return ConvertToJson(result);   
             }
-            catch (NoAssetsException)
+            catch (NoAssetException)
             {
                 return "{}";
             }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +20,10 @@ namespace asset_register_api.HomesEngland.UseCase
         public async Task<Dictionary<string,string>[]> Execute(int[] id)
         {
             Asset[] assets = await Gateway.GetAssets(id);
+            if (assets == null)
+            {
+                throw new NoAssetException();
+            }
             return assets.Select(_ => _.ToDictionary()).ToArray();
         }
     }
