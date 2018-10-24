@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.HomesEngland.Exception;
@@ -7,21 +9,22 @@ using asset_register_api.Interface.UseCase;
 
 namespace asset_register_api.HomesEngland.UseCase
 {
-    public class GetAsset :IGetAssetUseCase
+    public class GetAssets:IGetAssetsUseCase
     {
         private IAssetGateway Gateway { get; }
-        public GetAsset(IAssetGateway gateway)
+        public GetAssets(IAssetGateway gateway)
         {
             Gateway = gateway;
         }
-        public async Task<Dictionary<string,string>> Execute(int id)
+
+        public async Task<Dictionary<string,string>[]> Execute(int[] id)
         {
-            Asset asset = await Gateway.GetAsset(id);
-            if (asset == null)
+            Asset[] assets = await Gateway.GetAssets(id);
+            if (assets == null)
             {
                 throw new NoAssetException();
             }
-            return asset.ToDictionary();
+            return assets.Select(_ => _.ToDictionary()).ToArray();
         }
     }
 }
