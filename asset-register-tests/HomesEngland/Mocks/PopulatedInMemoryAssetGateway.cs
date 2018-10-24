@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Interface;
@@ -21,7 +20,6 @@ namespace asset_register_tests.HomesEngland.Mocks
         
         public async Task<Asset> GetAsset(int id)
         {
-            Console.WriteLine("PopulatedInMemoryAssetGateway.GetAsset ");
             return assets[0];
         }
 
@@ -32,7 +30,6 @@ namespace asset_register_tests.HomesEngland.Mocks
 
         public async Task<Asset[]> GetAssets(int[] ids)
         {
-            
             return assets;
         }
     }

@@ -36,13 +36,11 @@ namespace asset_register_tests.HomesEngland.IntegrationTest
             Server.Dispose();
         }
         
-      
-   
         [Test]
-        public async Task GetAsset()
+        public async Task GetAssetReturnsSuccess()
         {
             using (var response = await Client.GetAsync("/asset/2")) {
-                Console.WriteLine("Should 202 but... "+response);
+               Assert.True(response.IsSuccessStatusCode);
             }
         }
     }
