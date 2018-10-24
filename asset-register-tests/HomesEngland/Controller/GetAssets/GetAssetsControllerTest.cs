@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.Controllers;
@@ -47,17 +46,14 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
                 if(assetAsJson["Address"]!=null)
                 {
                     Assert.True(Assets.Any(_=>_.Address == assetAsJson["Address"].ToString()));
-                    Console.WriteLine(assetAsJson["Address"]);
                 }
                 if(assetAsJson["SchemeID"]!=null)
                 {
                     Assert.True(Assets.Any(_=>_.SchemeID == assetAsJson["SchemeID"].ToString()));
-                    Console.WriteLine(assetAsJson["SchemeID"]);
                 }
                 if(assetAsJson["AccountingYear"]!=null)
                 {
                     Assert.True(Assets.Any(_=>_.AccountingYear == assetAsJson["AccountingYear"].ToString()));
-                    Console.WriteLine(assetAsJson["AccountingYear"]);
                 }
             }
         }
