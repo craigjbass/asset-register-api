@@ -17,12 +17,14 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset
             UseCase = new asset_register_api.HomesEngland.UseCase.GetAsset(Gateway);
         }
         
-        protected Mock<IAssetGateway> CreateMockToReturnAssetWithName(int id, string assetName)
+        protected Mock<IAssetGateway> CreateMockToReturnAssetWithName(int id, string address, string schemaID, string accountingYear)
         {
             Mock<IAssetGateway>  mock = new Mock<IAssetGateway>();
             mock.Setup(gateway => gateway.GetAsset(id)).ReturnsAsync(() => new Asset()
             {
-                Name = assetName
+                Address = address,
+                SchemeID =  schemaID,
+                AccountingYear = accountingYear
             });
             return mock;
         }

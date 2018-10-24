@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Interface;
 using Moq;
 using NUnit.Framework;
@@ -13,11 +12,13 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithAsset
         protected override IAssetGateway Gateway => Mock.Object;
         
         protected abstract int AssetId { get;  }
-        protected abstract string AssetName { get; }
+        protected abstract string AssetAddress { get; }
+        protected abstract string AssetSchemeID { get; }
+        protected abstract string AssetAccountingYear { get; }
 
         protected GivenAsset()
         {
-            Mock = CreateMockToReturnAssetWithName(AssetId, AssetName);
+            Mock = CreateMockToReturnAssetWithName(AssetId, AssetAddress, AssetSchemeID,AssetAccountingYear);
         }
         
         [SetUp]
@@ -36,7 +37,9 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAsset.WithAsset
         public async Task ItReturnsFoundAsset()
         {
             Dictionary<string,string> returnedAsset = await UseCase.Execute(AssetId);
-            Assert.True(returnedAsset["Name"] == AssetName);
+            Assert.True(returnedAsset["Address"] == AssetAddress);
+            Assert.True(returnedAsset["SchemeID"] == AssetSchemeID);
+            Assert.True(returnedAsset["AccountingYear"] ==AssetAccountingYear);
         } 
     }
 }

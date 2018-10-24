@@ -8,12 +8,8 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets.Examples
     public class GetAssetsControllerTestExampleOne:GetAssetsControllerTest
     {
         protected override Asset[] Assets => new[]{
-            GetAsset("Scout The Dog"), 
-            GetAsset("Don At Mad Tech") };
+            GetAsset("2, Horse Road, Horse Town", "1234","1998"), 
+            GetAsset("2, Cow Road, Cow Town", "12455667","1234") };
         protected override int[] AssetIds  => new[]{1,2};
-        protected override string JsonResponse => "{\"Assets\":["
-                                                  + GetJsonLine("Scout The Dog")+","
-                                                  + GetJsonLine("Don At Mad Tech")
-                                                  + "]}";
     }
 }

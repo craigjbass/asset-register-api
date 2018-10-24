@@ -7,20 +7,12 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets.Examples
     [TestFixture]
     public class GetAssetsControllerTestExampleTwo:GetAssetsControllerTest
     {
-        protected override Asset[] Assets => new[]
-        {
-            GetAsset("Cats"),
-            GetAsset("Cows"), 
-            GetAsset("Hats"), 
-            GetAsset("Ducks")
+        protected override Asset[] Assets => new[]{
+            GetAsset("1, Dog Road, Horse Town", "412","1066"), 
+            GetAsset("2, Cat Road, Dog Town", "412213","1166"),
+            GetAsset("3,4,5 Snail Road, Cow Town", "23424","1266"), 
+            GetAsset("6, Duck Road, Duck Town", "234234","1366")
         };
-        protected override int[] AssetIds  => new[]{99,123,4444,5123};
-        protected override string JsonResponse => "{\"Assets\":["
-                                                  + GetJsonLine("Cats")+","
-                                                  + GetJsonLine("Cows")+","
-                                                  + GetJsonLine("Hats")+","
-                                                  + GetJsonLine("Ducks")
-                                                  + "]}";
+        protected override int[] AssetIds  => new[]{1,2};
     }
-    
 }

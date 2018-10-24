@@ -10,11 +10,15 @@ namespace asset_register_tests.HomesEngland.Mocks
         {
             new Asset()
             {
-                Name = "Dog"
+                Address = "Dog Town",
+                SchemeID = "77",
+                AccountingYear = "1666"
             },
             new Asset()
             {
-                Name = "Cat"
+                Address = "32 Cat Street",
+                SchemeID = "2345",
+                AccountingYear = "1235"
             }
         };
         

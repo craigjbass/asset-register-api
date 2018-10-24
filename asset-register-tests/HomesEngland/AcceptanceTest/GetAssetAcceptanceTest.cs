@@ -17,7 +17,10 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
         {
             Asset asset = new Asset()
             {
-                Name = "Scout The Dog"
+                Address = "1, The Pavement, Town",
+                SchemeID = "22",
+                AccountingYear = "1999"
+
             };
             // Add Asset
             InMemoryAssetGateway gateway = new InMemoryAssetGateway();
@@ -26,7 +29,9 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
             // Get Asset
             IGetAssetUseCase getAssetUseCase = new GetAsset(gateway);
             Dictionary<string, string> returnedDictionary = getAssetUseCase.Execute(id).Result;
-            Assert.True(asset.Name == returnedDictionary["Name"]);
+            Assert.True(asset.Address == returnedDictionary["Address"]);
+            Assert.True(asset.AccountingYear == returnedDictionary["AccountingYear"]);
+            Assert.True(asset.SchemeID == returnedDictionary["SchemeID"]);
         }
     }
 }
