@@ -8,36 +8,31 @@ using asset_register_api.Interface;
 using hear_api.HomesEngland.Gateway;
 using NUnit.Framework;
 
-namespace asset_register_tests.HomesEngland.Gateway
+namespace asset_register_tests.HomesEngland.Gateway.InMemoryGateway
 {
     [TestFixture]
-    public class InMemoryAssetGatewayTest
+    public abstract class AssetGatewayTest
     {
-        private IAssetGateway _assetGateway;
-        [SetUp]
-        public void SetUp()
-        {
-            _assetGateway = new InMemoryAssetGateway();
-        }
-
+        protected abstract IAssetGateway AssetGateway { get; set; }
+        
         [Test]
-        public void InMemoryGatewayHasAddAssetMethod()
+        public void GatewayHasAddAssetMethod()
         {
-            Assert.DoesNotThrowAsync(async ()=>await _assetGateway.AddAsset(new Asset()));
+            Assert.DoesNotThrowAsync(async ()=>await AssetGateway.AddAsset(new Asset()));
         }
         
         [Test]
         public void GetAssetWithThrowNoAssetExceptionIfIdIsInvalid()
         {
-            Assert.ThrowsAsync<NoAssetException>(async () => await _assetGateway.GetAsset(-1));
-            Assert.ThrowsAsync<NoAssetException>(async () => await _assetGateway.GetAsset(0));
-            Assert.ThrowsAsync<NoAssetException>(async () => await _assetGateway.GetAsset(21));
+            Assert.ThrowsAsync<NoAssetException>(async () => await AssetGateway.GetAsset(-1));
+            Assert.ThrowsAsync<NoAssetException>(async () => await AssetGateway.GetAsset(0));
+            Assert.ThrowsAsync<NoAssetException>(async () => await AssetGateway.GetAsset(21));
         }
         
         [Test]
         public async Task AddAssetReturnsAssetId()
         {
-            int assetId = await _assetGateway.AddAsset(new Asset());
+            int assetId = await AssetGateway.AddAsset(new Asset());
             Assert.True(assetId == 0);
         }
         
@@ -53,8 +48,8 @@ namespace asset_register_tests.HomesEngland.Gateway
                 SchemeID = schemaID,
                 AccountingYear = accountingYear
             };
-            int assetId = await _assetGateway.AddAsset(assetToAdd);
-            Asset returnedAsset = await _assetGateway.GetAsset(assetId);
+            int assetId = await AssetGateway.AddAsset(assetToAdd);
+            Asset returnedAsset = await AssetGateway.GetAsset(assetId);
             Assert.True((string) returnedAsset.Address == address);
             Assert.True((string) returnedAsset.SchemeID == schemaID);
             Assert.True((string) returnedAsset.AccountingYear == accountingYear);
@@ -76,11 +71,11 @@ namespace asset_register_tests.HomesEngland.Gateway
                     SchemeID = schemaID,
                     AccountingYear = accountingYear
                 };
-                int assetId = await _assetGateway.AddAsset(assetToAdd);
+                int assetId = await AssetGateway.AddAsset(assetToAdd);
                 addedAssets.Add(assetId,assetToAdd);
             }
 
-            Asset[] returnedAssets = await _assetGateway.GetAssets(addedAssets.Keys.ToArray());
+            Asset[] returnedAssets = await AssetGateway.GetAssets(addedAssets.Keys.ToArray());
 
             for (int i = 0; i < returnedAssets.Length; i++)
             {
@@ -96,7 +91,7 @@ namespace asset_register_tests.HomesEngland.Gateway
         {
             for (int i = 0; i < 10; i++)
             {
-                int assetId = await _assetGateway.AddAsset(new Asset());
+                int assetId = await AssetGateway.AddAsset(new Asset());
                 Assert.True(assetId == i);
             }
         }    
@@ -109,12 +104,12 @@ namespace asset_register_tests.HomesEngland.Gateway
             {
                 string address = new Guid().ToString();
                 addresses.Add(i,address);
-                await _assetGateway.AddAsset(new Asset(){Address = address});
+                await AssetGateway.AddAsset(new Asset(){Address = address});
             }
             
             for (int i = 0; i < 10; i++)
             {
-                Asset asset = await _assetGateway.GetAsset(i);
+                Asset asset = await AssetGateway.GetAsset(i);
                 Assert.True(asset.Address == addresses[i]);
             }
         }

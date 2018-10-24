@@ -36,9 +36,18 @@ namespace hear_api.HomesEngland.Gateway
             return returnList.ToArray();
         }
 
-        public Task<Asset[]> SearchAssets(string searchQuery)
+        public async Task<Asset[]> SearchAssets(string searchQuery)
         {
-            throw new NotImplementedException();
+            List<Asset> returnList = new List<Asset>();
+            for (int i = 0; i < _assets.Count; i++)
+            {
+                if (_assets[i].Address == searchQuery)
+                {
+                    returnList.Add(_assets[i]);
+                }
+            }
+
+            return returnList.ToArray();
         }
 
         private async Task AddAsset(int[] ids, List<Asset> returnList, int i)
