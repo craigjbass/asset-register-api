@@ -16,12 +16,18 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
         public async Task GetExistingAsset()
         {
             InMemoryAssetGateway gateway = new InMemoryAssetGateway();
-            string[] names = new[] {"Cat", "Dog", "Cow", "Duck"};
+            string[] addresses = new[]
+            {
+                "1, The Town, Towny Mc Town Town", 
+                "2, The City, Earth", 
+                "3, 33, The Street, Moon", 
+                "2, The Dog"
+            };
             int[] ids = new int[4];
-            for (int i = 0; i < names.Length; i++)
+            for (int i = 0; i < addresses.Length; i++)
             {  Asset asset = new Asset()
                 {
-                    Name= names[i]
+                    Address= addresses[i]
                 };
 
                 // Add Asset
@@ -34,7 +40,7 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
             for (int i = 0; i < returnedValues.Length; i++)
             {
                 var assetAsDictionary = returnedValues[i]; 
-                Assert.True(names[i] == assetAsDictionary["Name"]);
+                Assert.True(addresses[i] == assetAsDictionary["Address"]);
             }
         }
     }

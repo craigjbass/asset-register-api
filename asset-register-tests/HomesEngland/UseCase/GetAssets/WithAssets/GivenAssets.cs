@@ -30,7 +30,10 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAssets.WithAssets
             {
                 Asset asset = new Asset()
                 {
-                    Name = Guid.NewGuid().ToString()
+                    Address = Guid.NewGuid().ToString(),
+                    AccountingYear = "2001",
+                    SchemeID = "55"
+                    
                 };
                 returnAssets.Add(asset);
             }
@@ -43,7 +46,9 @@ namespace asset_register_tests.HomesEngland.UseCase.GetAssets.WithAssets
             Dictionary<string, string>[] returnedAssets = await UseCase.Execute(AssetsIds);
             for (int i = 0; i < AssetsToReturn.Length; i++)
             {
-                Assert.True(returnedAssets.Any(_=>_.ContainsValue(AssetsToReturn[i].Name)));
+                Assert.True(returnedAssets.Any(_=>_.ContainsValue(AssetsToReturn[i].Address)));
+                Assert.True(returnedAssets.Any(_=>_.ContainsValue(AssetsToReturn[i].AccountingYear)));
+                Assert.True(returnedAssets.Any(_=>_.ContainsValue(AssetsToReturn[i].SchemeID)));
             }
         }
         

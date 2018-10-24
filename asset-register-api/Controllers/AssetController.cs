@@ -37,10 +37,15 @@ namespace asset_register_api.Controllers
             string expectedResult = "{";
             foreach (string key in result.Keys)
             {
-                expectedResult += quoteMark + key + quoteMark + ":" + quoteMark + result[key] + quoteMark;
+                expectedResult += quoteMark + key + quoteMark + ":" + quoteMark + result[key] + quoteMark+",";
             }
-            expectedResult += "}";
+            expectedResult =  RemoveLastComma(expectedResult)+"}";
             return expectedResult;
+        }
+        
+        private static string RemoveLastComma(string expectedResult)
+        {
+            return expectedResult.Remove(expectedResult.Length - 1);
         }
     }
 }

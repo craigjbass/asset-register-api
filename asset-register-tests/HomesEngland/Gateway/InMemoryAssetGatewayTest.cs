@@ -44,14 +44,20 @@ namespace asset_register_tests.HomesEngland.Gateway
         [Test]
         public async Task AddAssetReturnsAssetFromId()
         {
-            string guid = new Guid().ToString();
+            string address = new Guid().ToString();
+            string schemaID = new Guid().ToString();
+            string accountingYear = new Guid().ToString();
             Asset assetToAdd = new Asset()
             {
-                Name = guid
+                Address = address,
+                SchemeID = schemaID,
+                AccountingYear = accountingYear
             };
             int assetId = await _assetGateway.AddAsset(assetToAdd);
             Asset returnedAsset = await _assetGateway.GetAsset(assetId);
-            Assert.True((string) returnedAsset.Name == guid);
+            Assert.True((string) returnedAsset.Address == address);
+            Assert.True((string) returnedAsset.SchemeID == schemaID);
+            Assert.True((string) returnedAsset.AccountingYear == accountingYear);
         }
 
 
@@ -61,10 +67,14 @@ namespace asset_register_tests.HomesEngland.Gateway
             Dictionary<int,Asset> addedAssets = new Dictionary<int, Asset>();
             for (int i = 0; i < 10; i++)
             {
-                string guid = new Guid().ToString();
+                string address = new Guid().ToString();
+                string schemaID = new Guid().ToString();
+                string accountingYear = new Guid().ToString();
                 Asset assetToAdd = new Asset()
                 {
-                    Name = guid
+                    Address = address,
+                    SchemeID = schemaID,
+                    AccountingYear = accountingYear
                 };
                 int assetId = await _assetGateway.AddAsset(assetToAdd);
                 addedAssets.Add(assetId,assetToAdd);
@@ -74,7 +84,9 @@ namespace asset_register_tests.HomesEngland.Gateway
 
             for (int i = 0; i < returnedAssets.Length; i++)
             {
-                Assert.True(addedAssets.Values.Any(_=> _.Name == returnedAssets[i].Name));
+                Assert.True(addedAssets.Values.Any(_ => _.Address == returnedAssets[i].Address));
+                Assert.True(addedAssets.Values.Any(_ => _.SchemeID == returnedAssets[i].SchemeID));
+                Assert.True(addedAssets.Values.Any(_=> _.AccountingYear == returnedAssets[i].AccountingYear));
             }
         }
        
@@ -92,18 +104,18 @@ namespace asset_register_tests.HomesEngland.Gateway
         [Test]
         public async Task AddAssetReturnsCorrectAssetsSequentially()
         {
-            Dictionary<int,string> names = new Dictionary<int, string>();
+            Dictionary<int,string> addresses = new Dictionary<int, string>();
             for (int i = 0; i < 10; i++)
             {
-                string name = new Guid().ToString();
-                names.Add(i,name);
-                await _assetGateway.AddAsset(new Asset(){Name= name});
+                string address = new Guid().ToString();
+                addresses.Add(i,address);
+                await _assetGateway.AddAsset(new Asset(){Address = address});
             }
             
             for (int i = 0; i < 10; i++)
             {
                 Asset asset = await _assetGateway.GetAsset(i);
-                Assert.True(asset.Name == names[i]);
+                Assert.True(asset.Address == addresses[i]);
             }
         }
     }

@@ -6,6 +6,7 @@ using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Interface.UseCase;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 namespace asset_register_tests.HomesEngland.Controller.GetAssets
@@ -15,7 +16,6 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
     {
         protected abstract Asset[] Assets { get; }
         protected abstract int[] AssetIds { get; }
-        protected abstract string JsonResponse { get; }
 
         private Mock<IGetAssetsUseCase> _mock;
         private AssetsController _controller;
@@ -41,19 +41,39 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
         public async Task GetAssetControllerReturnsJson()
         {
             ActionResult<string> returnedData = await _controller.Get(AssetIds);
-            Assert.True(returnedData.Value == JsonResponse);
+            JObject json = JObject.Parse(returnedData.Value);
+            foreach (var assetAsJson in json.GetValue("Assets"))
+            {
+                if(assetAsJson["Address"]!=null)
+                {
+                    Assert.True(Assets.Any(_=>_.Address == assetAsJson["Address"].ToString()));
+                    Console.WriteLine(assetAsJson["Address"]);
+                }
+                if(assetAsJson["SchemeID"]!=null)
+                {
+                    Assert.True(Assets.Any(_=>_.SchemeID == assetAsJson["SchemeID"].ToString()));
+                    Console.WriteLine(assetAsJson["SchemeID"]);
+                }
+                if(assetAsJson["AccountingYear"]!=null)
+                {
+                    Assert.True(Assets.Any(_=>_.AccountingYear == assetAsJson["AccountingYear"].ToString()));
+                    Console.WriteLine(assetAsJson["AccountingYear"]);
+                }
+            }
         }
         
-        protected string GetJsonLine(string name)
+        protected string GetJsonLine(string address, string schemeID, string accountingYear)
         {
-            return "{\"Name\":\"" + name + "\"}";
+            return "{\"Address\":\"" + address + "\",\"SchemeID\":\""+schemeID+"\",\"AccountingYear\":\""+accountingYear+"\"}";
         }
 
-        protected Asset GetAsset(string name)
+        protected Asset GetAsset(string address, string schemeID, string accountingYear)
         {
             return new Asset()
             {
-                Name = name
+                Address = address,
+                SchemeID = schemeID,
+                AccountingYear = accountingYear
             };
         }
     }
