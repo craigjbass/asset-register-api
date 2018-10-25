@@ -1,11 +1,11 @@
 using asset_register_api.HomesEngland.Domain;
 using asset_register_tests.HomesEngland.Gateway.InMemoryGateway.InMemoryGateway;
 
-namespace asset_register_tests.HomesEngland.Gateway.AssetGateway.AssetGatewaySearchTests.ExactMatches
+namespace asset_register_tests.HomesEngland.Gateway.AssetGateway.AssetGatewaySearchTests.ExactMatches.Address
 {
-    public class SearchAddressExactMatchSingleResultExampleOne:InMemoryAssetGatewaySearchTest
+    public class SearchAddressPartialMatchSingleResultExampleOne:InMemoryAssetGatewaySearchTest
     {
-        protected override string SearchQuery => "Cow";
+        protected override string SearchQuery => "ow";
 
         protected override Asset[] AssetsInGateway => new[]
         {
@@ -14,6 +14,12 @@ namespace asset_register_tests.HomesEngland.Gateway.AssetGateway.AssetGatewaySea
                 Address = "Cow", 
                 SchemeID = "22",
                 AccountingYear = "1982"
+            },
+            new Asset()
+            {
+                Address = "Clanger", 
+                SchemeID = "67",
+                AccountingYear = "0"
             } 
         };
         

@@ -15,7 +15,6 @@ namespace asset_register_tests.HomesEngland.Gateway.InMemoryGateway.InMemoryGate
         {
             AssetGateway = new InMemoryAssetGateway();
             await base.SetUp();
-          
         }
     }
 }

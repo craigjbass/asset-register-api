@@ -74,7 +74,7 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
             Dictionary<string, string>[] searchResult = await searchAssetsUseCase.Execute("Cat");
            
             Assert.AreEqual(searchResult[0]["Address"],"Cat House");
-            Assert.AreEqual(searchResult[0]["SchemeID"],"2229");
+            Assert.AreEqual(searchResult[0]["SchemeID"],"6345");
             Assert.AreEqual(searchResult[0]["AccountingYear"],"2229");
             
             searchResult = await searchAssetsUseCase.Execute("234");
