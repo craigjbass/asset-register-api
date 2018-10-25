@@ -57,11 +57,6 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
                 }
             }
         }
-        
-        protected string GetJsonLine(string address, string schemeID, string accountingYear)
-        {
-            return "{\"Address\":\"" + address + "\",\"SchemeID\":\""+schemeID+"\",\"AccountingYear\":\""+accountingYear+"\"}";
-        }
 
         protected Asset GetAsset(string address, string schemeID, string accountingYear)
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.Interface.UseCase;
 using Microsoft.AspNetCore.Mvc;
@@ -7,19 +8,20 @@ namespace asset_register_api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AssetsController : ControllerBase
+    public class SearchController : Controller
     {
-        private readonly IGetAssetsUseCase _assetsUseCase;
-        public AssetsController(IGetAssetsUseCase useCase)
+        private ISearchAssetsUseCase UseCase { get; }
+        public SearchController(ISearchAssetsUseCase useCase)
         {
-            _assetsUseCase = useCase;
+            UseCase = useCase;
         }
         
         [HttpGet]
-        public async Task<ActionResult<string>> Get(int[] ids)
-        { 
-            return GetExpectedResult( await _assetsUseCase.Execute(ids));
+        public async Task<ActionResult<string>> Get(string query)
+        {
+            return GetExpectedResult( await UseCase.Execute(query));
         }
+        
         private string GetExpectedResult( Dictionary<string, string>[] results)
         {
             return GetAssetsJsonArray(results);
@@ -32,16 +34,12 @@ namespace asset_register_api.Controllers
                 return "{\"Assets\":[]}";
             }
             
-            string expectedResult = "{\"Assets\":[";
-            foreach (var asset in results)
-            {
-                expectedResult = GetJsonAsset(expectedResult, asset);
-            }
-            
+            string expectedResult = results.Aggregate("{\"Assets\":[", (current, asset) => GetJsonAsset(current, asset));
+
             expectedResult = RemoveLastComma(expectedResult) + "]}";
             return expectedResult;
         }
-
+        
         private static string RemoveLastComma(string expectedResult)
         {
             return expectedResult.Remove(expectedResult.Length - 1);

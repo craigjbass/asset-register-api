@@ -70,7 +70,7 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
             }
         
         
-            ISearchAssetsUseCase searchAssetsUseCase = new SearchAssetsUseCase(gateway);
+            ISearchAssetsUseCase searchAssetsUseCase = new SearchAssets(gateway);
             Dictionary<string, string>[] searchResult = await searchAssetsUseCase.Execute("Cat");
            
             Assert.AreEqual(searchResult[0]["Address"],"Cat House");

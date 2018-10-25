@@ -24,7 +24,7 @@ namespace asset_register_tests.HomesEngland.UseCase.SearchAssets
         {
             _mock = new Mock<IAssetGateway>();
             _mock.Setup(gateway => gateway.SearchAssets(SearchQuery)).ReturnsAsync(() => GatewaySearchResults);
-            UseCase = new SearchAssetsUseCase(_mock.Object);
+            UseCase = new asset_register_api.HomesEngland.UseCase.SearchAssets(_mock.Object);
             SearchResults = await UseCase.Execute(SearchQuery);
         }
 

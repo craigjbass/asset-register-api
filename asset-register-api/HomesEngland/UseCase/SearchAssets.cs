@@ -7,11 +7,11 @@ using asset_register_api.Interface.UseCase;
 
 namespace asset_register_api.HomesEngland.UseCase
 {
-    public class SearchAssetsUseCase:ISearchAssetsUseCase
+    public class SearchAssets:ISearchAssetsUseCase
     { 
         private IAssetGateway Gateway { get;}
 
-        public SearchAssetsUseCase(IAssetGateway gateway)
+        public SearchAssets(IAssetGateway gateway)
         {
             Gateway = gateway;
         }
