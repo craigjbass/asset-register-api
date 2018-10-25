@@ -11,3 +11,8 @@ docker-down:
 .PHONY: serve
 serve:	docker-down docker-build
 	$(COMPOSE) up
+
+.PHONY: test
+test:
+	docker build --pull --target testrunner -t asset-register-api:test .
+	docker run --rm asset-register-api:test
