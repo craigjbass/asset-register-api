@@ -7,18 +7,16 @@ using hear_api.HomesEngland.Gateway;
 using NUnit.Framework;
 
 namespace asset_register_tests.HomesEngland.AcceptanceTest
-{   
+{
     [TestFixture]
-    public class GetAssetsAcceptanceTest
+    public class SearchAssetsAcceptanceTest
     {
-
         [Test]
-        public async Task GetExistingAsset()
+        public async Task SearchAssets()
         {
-            InMemoryAssetGateway gateway = new InMemoryAssetGateway();
+             InMemoryAssetGateway gateway = new InMemoryAssetGateway();
 
-            Asset[] assets =
-            {
+             Asset[] assets ={
                 new Asset()
                 {
                     Address = "1, The Pavement, Town",
@@ -37,7 +35,7 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
                 {
                     Address = "Pavement",
                     SchemeID = "11",
-                    AccountingYear = "1634"
+                    AccountingYear = "1983"
 
                 },
                 new Asset()
@@ -47,7 +45,7 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
                     AccountingYear = "1927"
 
                 },
-                 new Asset()
+                new Asset()
                 {
                     Address = "Cat House",
                     SchemeID = "6345",
@@ -59,27 +57,34 @@ namespace asset_register_tests.HomesEngland.AcceptanceTest
                     Address = "Bee Hive",
                     SchemeID = "234",
                     AccountingYear = "2018"
-                },
+                }
             };
-         
-            List<int> ids = new List<int>();
-            for (int i = 0; i < assets.Length; i++)
-            {  
-                // Add Asset
-                ids.Add(await gateway.AddAsset(assets[i]));
-            }
-            
-            IGetAssetsUseCase getAssetsUseCase = new GetAssets(gateway);
-            Dictionary<string, string>[] returnedValues =  getAssetsUseCase.Execute(ids.ToArray()).Result;
+        
+         List<int> _ids = new List<int>();
 
-            for (int i = 0; i < returnedValues.Length; i++)
+      
+            _ids = new List<int>();
+            for (int i = 0; i < assets.Length; i++)
             {
-                var assetAsDictionary = returnedValues[i]; 
-                Assert.True(assets[i].Address == assetAsDictionary["Address"]);
-                Assert.True(assets[i].AccountingYear == assetAsDictionary["AccountingYear"]);
-                Assert.True(assets[i].SchemeID == assetAsDictionary["SchemeID"]);
+                _ids.Add(await gateway.AddAsset(assets[i]));
             }
+        
+        
+            ISearchAssetsUseCase searchAssetsUseCase = new SearchAssets(gateway);
+            Dictionary<string, string>[] searchResult = await searchAssetsUseCase.Execute("Cat");
+           
+            Assert.AreEqual(searchResult[0]["Address"],"Cat House");
+            Assert.AreEqual(searchResult[0]["SchemeID"],"6345");
+            Assert.AreEqual(searchResult[0]["AccountingYear"],"2229");
+            
+            searchResult = await searchAssetsUseCase.Execute("234");
+           
+            Assert.AreEqual(searchResult[0]["Address"],"Bee Hive");
+            Assert.AreEqual(searchResult[0]["SchemeID"],"234");
+            Assert.AreEqual(searchResult[0]["AccountingYear"],"2018");
+            
+            searchResult = await searchAssetsUseCase.Execute("1983");
+            Assert.True(searchResult.Length == 2);
         }
     }
-    
 }

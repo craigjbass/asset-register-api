@@ -8,5 +8,6 @@ namespace asset_register_api.Interface
         Task<Asset> GetAsset(int id);
         Task<int> AddAsset(Asset asset);
         Task<Asset[]> GetAssets(int[] ids);
+        Task<Asset[]> SearchAssets(string searchQuery);
     }
 }

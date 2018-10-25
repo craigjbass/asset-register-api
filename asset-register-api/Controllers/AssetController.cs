@@ -16,6 +16,7 @@ namespace asset_register_api.Controllers
         {
             _assetUseCase = useCase;
         }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<string>> Get(int id)
         { 

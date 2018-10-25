@@ -36,5 +36,10 @@ namespace asset_register_tests.HomesEngland.Mocks
         {
             return assets;
         }
+
+        public async Task<Asset[]> SearchAssets(string searchQuery)
+        {
+            return new Asset[]{assets[1]};
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace hear_api
             services.AddTransient<IAssetGateway, InMemoryAssetGateway>();
             services.AddTransient<IGetAssetUseCase, GetAsset>();
             services.AddTransient<IGetAssetsUseCase, GetAssets>();
+            services.AddTransient<ISearchAssetsUseCase, SearchAssets>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
