@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+
+    steps:
+      - checkout
+      - run: dotnet --info
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
