@@ -21,12 +21,4 @@
     <ItemGroup>
       <ProjectReference Include="..\asset-register-api\asset-register-api.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Mvc.Core, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-      </Reference>
-      <Reference Include="Microsoft.AspNetCore.Mvc.ViewFeatures, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-      </Reference>
-    </ItemGroup>
-
 </Project>
