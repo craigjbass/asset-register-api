@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Exception;
 using asset_register_api.Interface.UseCase;
@@ -7,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace asset_register_api.Controllers
 {
+    using Asset = Dictionary<string,string>;
+
     [Route("[controller]")]
     [ApiController]
     public class AssetController : ControllerBase
@@ -16,37 +17,19 @@ namespace asset_register_api.Controllers
         {
             _assetUseCase = useCase;
         }
-        
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<string>> Get(int id)
-        { 
+        [Produces("application/json")]
+        public async Task<ActionResult<Asset>> Get(int id)
+        {
             try
             {
-                Dictionary<string,string> result = await _assetUseCase.Execute(id);
-                return ConvertToJson(result);   
+                return await _assetUseCase.Execute(id);
             }
             catch (NoAssetException)
             {
-                return "{}";
+                return new Asset();
             }
-          
-        }
-
-        private static string ConvertToJson(Dictionary<string, string> result)
-        {
-            string quoteMark = "\"";
-            string expectedResult = "{";
-            foreach (string key in result.Keys)
-            {
-                expectedResult += quoteMark + key + quoteMark + ":" + quoteMark + result[key] + quoteMark+",";
-            }
-            expectedResult =  RemoveLastComma(expectedResult)+"}";
-            return expectedResult;
-        }
-        
-        private static string RemoveLastComma(string expectedResult)
-        {
-            return expectedResult.Remove(expectedResult.Length - 1);
         }
     }
 }

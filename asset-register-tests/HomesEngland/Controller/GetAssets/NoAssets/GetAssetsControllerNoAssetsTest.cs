@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using asset_register_api.Controllers;
@@ -8,6 +9,9 @@ using NUnit.Framework;
 
 namespace asset_register_tests.HomesEngland.Controller.GetAssets
 {
+    using AssetDictionary = Dictionary<string, string>;
+    using AssetsDictionary = Dictionary<string, Dictionary<string, string>[]>;
+
     [TestFixture]
     public class GetAssetsControllerNoAssetsTest
     {
@@ -28,8 +32,13 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
         [Test]
         public async Task ReturnsJsonWithEmptyAssetsArray()
         {
-            ActionResult<string> controllerResult = await  _controller.Get(AssetIds);
-            Assert.AreEqual(controllerResult.Value, "{\"Assets\":[]}");
+            ActionResult<AssetsDictionary> controllerResult = await  _controller.Get(AssetIds);
+            Assert.AreEqual(
+                controllerResult.Value,
+                new AssetsDictionary {
+                    {"Assets", new AssetDictionary[0]}
+                }
+            );
         }
     }
 }
