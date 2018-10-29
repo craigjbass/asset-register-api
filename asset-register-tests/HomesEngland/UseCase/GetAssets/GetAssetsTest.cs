@@ -1,4 +1,4 @@
-using asset_register_api.Interface;
+using asset_register_api.Boundary;
 using NUnit.Framework;
 namespace asset_register_tests.HomesEngland.UseCase.GetAssets
 {

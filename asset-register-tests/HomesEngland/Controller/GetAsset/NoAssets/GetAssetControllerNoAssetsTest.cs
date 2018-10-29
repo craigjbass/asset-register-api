@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using asset_register_api.Controllers;
 using asset_register_api.HomesEngland.Exception;
-using asset_register_api.Interface.UseCase;
+using asset_register_api.Boundary.UseCase;
 using Moq;
 using NUnit.Framework;
 

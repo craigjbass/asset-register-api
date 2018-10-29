@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using asset_register_api.Interface;
+using asset_register_api.Boundary;
 using Moq;
 using NUnit.Framework;
 

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 
-namespace asset_register_api.Interface
+namespace asset_register_api.Boundary
 {
     public interface IAssetGateway
     {

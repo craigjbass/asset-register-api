@@ -1,7 +1,4 @@
-﻿using asset_register_api.HomesEngland.UseCase;
-using asset_register_api.Interface;
-using asset_register_api.Interface.UseCase;
-using hear_api.HomesEngland.Gateway;
+﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +20,22 @@ namespace hear_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient<IAssetGateway, InMemoryAssetGateway>();
-            services.AddTransient<IGetAssetUseCase, GetAsset>();
-            services.AddTransient<IGetAssetsUseCase, GetAssets>();
-            services.AddTransient<ISearchAssetsUseCase, SearchAssets>();
+            new AssetRegister().RegisterDependencies(new AspNetCoreAdapter(services));
+        }
+
+        class AspNetCoreAdapter : IDependencyReceiver
+        {
+            private readonly IServiceCollection _services;
+
+            public AspNetCoreAdapter(IServiceCollection services)
+            {
+                _services = services;
+            }
+
+            public void AddDependency(Type type, Func<Object> provider)
+            {
+                _services.AddTransient(type, _ => provider());
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

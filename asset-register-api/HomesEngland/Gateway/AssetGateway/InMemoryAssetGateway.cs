@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.HomesEngland.Exception;
-using asset_register_api.Interface;
-using Microsoft.EntityFrameworkCore.Internal;
+using asset_register_api.Boundary;
+#pragma warning disable 1998
 
 namespace hear_api.HomesEngland.Gateway
 {
@@ -39,17 +39,9 @@ namespace hear_api.HomesEngland.Gateway
 
         public async Task<Asset[]> SearchAssets(string searchQuery)
         {
-            List<Asset> returnList = new List<Asset>();
-   
-            for (int i = 0; i < _assets.Count; i++)
-            {
-                if (QueryFoundInProperties(searchQuery, _assets[i]))
-                {
-                    returnList.Add(_assets[i]);
-                }
-            }
-            
-            return returnList.ToArray();
+            return _assets.FindAll(
+                asset => QueryFoundInProperties(searchQuery, asset)
+            ).ToArray();
         }
 
         private bool QueryFoundInProperties(string searchQuery, Asset asset)

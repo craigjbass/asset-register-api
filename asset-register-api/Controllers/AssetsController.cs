@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using asset_register_api.Interface.UseCase;
+using asset_register_api.Boundary.UseCase;
 using Microsoft.AspNetCore.Mvc;
 
 namespace asset_register_api.Controllers

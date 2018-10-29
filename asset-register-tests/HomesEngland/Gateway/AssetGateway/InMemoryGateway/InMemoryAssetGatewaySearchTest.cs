@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using asset_register_api.Interface;
+using asset_register_api.Boundary;
 using asset_register_tests.HomesEngland.Gateway.AssetGateway;
 using hear_api.HomesEngland.Gateway;
 using NUnit.Framework;

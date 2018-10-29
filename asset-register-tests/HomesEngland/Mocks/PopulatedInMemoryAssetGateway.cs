@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
-using asset_register_api.Interface;
+using asset_register_api.Boundary;
 
 namespace asset_register_tests.HomesEngland.Mocks
 {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace asset_register_api.Interface.UseCase
+namespace asset_register_api.Boundary.UseCase
 {
     public interface ISearchAssetsUseCase
     {

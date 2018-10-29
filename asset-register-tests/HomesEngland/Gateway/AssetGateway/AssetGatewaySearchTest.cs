@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
-using asset_register_api.Interface;
+using asset_register_api.Boundary;
 using NUnit.Framework;
 
 namespace asset_register_tests.HomesEngland.Gateway.AssetGateway

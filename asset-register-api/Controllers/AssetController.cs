@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Exception;
-using asset_register_api.Interface.UseCase;
+using asset_register_api.Boundary.UseCase;
 using Microsoft.AspNetCore.Mvc;
 
 namespace asset_register_api.Controllers
