@@ -4,8 +4,12 @@ using System.Threading.Tasks;
 using asset_register_api.Boundary.UseCase;
 using Microsoft.AspNetCore.Mvc;
 
+
+
 namespace asset_register_api.Controllers
 {
+    using AssetsDictionary = Dictionary<string, Dictionary<string, string>[]>;
+
     [Route("[controller]")]
     [ApiController]
     public class AssetsController : ControllerBase
@@ -15,49 +19,22 @@ namespace asset_register_api.Controllers
         {
             _assetsUseCase = useCase;
         }
-        
+
         [HttpGet]
-        public async Task<ActionResult<string>> Get(int[] ids)
-        { 
-            return GetExpectedResult( await _assetsUseCase.Execute(ids));
-        }
-        private string GetExpectedResult( Dictionary<string, string>[] results)
+        [Produces("application/json")]
+        public async Task<ActionResult<AssetsDictionary>> Get(int[] ids)
         {
-            return GetAssetsJsonArray(results);
+            return GetWrappedAssets( await _assetsUseCase.Execute(ids));
         }
 
-        private static string GetAssetsJsonArray(Dictionary<string, string>[] results)
+        private static AssetsDictionary GetWrappedAssets(Dictionary<string, string>[] results)
         {
-            if (results.Length == 0)
+            return new AssetsDictionary
             {
-                return "{\"Assets\":[]}";
-            }
-            
-            string expectedResult = "{\"Assets\":[";
-            foreach (var asset in results)
-            {
-                expectedResult = GetJsonAsset(expectedResult, asset);
-            }
-            
-            expectedResult = RemoveLastComma(expectedResult) + "]}";
-            return expectedResult;
-        }
-
-        private static string RemoveLastComma(string expectedResult)
-        {
-            return expectedResult.Remove(expectedResult.Length - 1);
-        }
-
-        private static string GetJsonAsset(string expectedResult, Dictionary<string, string> asset)
-        {
-            expectedResult += "{";
-            foreach (string key in asset.Keys)
-            {
-                expectedResult += "\"" + key + "\":\"" + asset[key] + "\",";
-            }
-
-            expectedResult = RemoveLastComma(expectedResult) + "},";
-            return expectedResult;
+                {
+                    "Assets", results
+                }
+            };
         }
     }
 }
