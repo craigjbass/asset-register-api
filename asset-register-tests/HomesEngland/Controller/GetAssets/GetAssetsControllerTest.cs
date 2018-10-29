@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.Controllers;
@@ -5,11 +6,13 @@ using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Interface.UseCase;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 
 namespace asset_register_tests.HomesEngland.Controller.GetAssets
 {
+    using AssetDictionary = Dictionary<string, string>;
+    using AssetsDictionary = Dictionary<string, Dictionary<string, string>[]>;
+
     [TestFixture]
     public abstract class GetAssetsControllerTest
     {
@@ -39,21 +42,21 @@ namespace asset_register_tests.HomesEngland.Controller.GetAssets
         [Test]
         public async Task GetAssetControllerReturnsJson()
         {
-            ActionResult<string> returnedData = await _controller.Get(AssetIds);
-            JObject json = JObject.Parse(returnedData.Value);
-            foreach (var assetAsJson in json.GetValue("Assets"))
+            ActionResult<AssetsDictionary> returnedData = await _controller.Get(AssetIds);
+            AssetsDictionary json = returnedData.Value;
+            foreach (AssetDictionary assetAsJson in json["Assets"])
             {
                 if(assetAsJson["Address"]!=null)
                 {
-                    Assert.True(Assets.Any(_=>_.Address == assetAsJson["Address"].ToString()));
+                    Assert.True(Assets.Any(_=>_.Address == assetAsJson["Address"]));
                 }
                 if(assetAsJson["SchemeID"]!=null)
                 {
-                    Assert.True(Assets.Any(_=>_.SchemeID == assetAsJson["SchemeID"].ToString()));
+                    Assert.True(Assets.Any(_=>_.SchemeID == assetAsJson["SchemeID"]));
                 }
                 if(assetAsJson["AccountingYear"]!=null)
                 {
-                    Assert.True(Assets.Any(_=>_.AccountingYear == assetAsJson["AccountingYear"].ToString()));
+                    Assert.True(Assets.Any(_=>_.AccountingYear == assetAsJson["AccountingYear"]));
                 }
             }
         }

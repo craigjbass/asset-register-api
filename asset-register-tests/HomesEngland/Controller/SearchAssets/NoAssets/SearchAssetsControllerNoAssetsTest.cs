@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using asset_register_api.Controllers;
@@ -9,13 +10,16 @@ using NUnit.Framework;
 
 namespace asset_register_tests.HomesEngland.Controller.SearchAssets.NoAssets
 {
+    using AssetDictionary = Dictionary<string, string>;
+    using AssetsDictionary = Dictionary<string, Dictionary<string, string>[]>;
+
     public class SearchAssetsControllerNoAssetsTest
     {
         private Mock<ISearchAssetsUseCase> _mock;
         private SearchController _controller;
         protected Asset[] SearchResults => new Asset[0];
         private string SearchQuery => "Search";
-        
+
         [SetUp]
         public void SetUp()
         {
@@ -23,14 +27,19 @@ namespace asset_register_tests.HomesEngland.Controller.SearchAssets.NoAssets
             _mock.Setup(useCase => useCase.Execute(SearchQuery)).ReturnsAsync(() => SearchResults.ToList().Select(_=>_.ToDictionary()).ToArray());
             _controller = new SearchController(_mock.Object);
         }
-        
+
         [Test]
         public async Task ReturnsJsonWithEmptyAssetsArray()
         {
-            ActionResult<string> controllerResult = await  _controller.Get(SearchQuery);
-            Assert.AreEqual(controllerResult.Value, "{\"Assets\":[]}");
+            ActionResult<AssetsDictionary> controllerResult = await  _controller.Get(SearchQuery);
+            Assert.AreEqual(
+                controllerResult.Value,
+                new AssetsDictionary {
+                    {"Assets", new AssetDictionary[0]}
+                }
+            );
         }
-        
-     
+
+
     }
 }
