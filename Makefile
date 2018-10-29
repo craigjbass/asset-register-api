@@ -20,4 +20,4 @@ docker-down:
 	$(COMPOSE) down
 
 shell:
-	#
+	$(COMPOSE) run --rm web /bin/bash
