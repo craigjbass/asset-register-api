@@ -16,32 +16,16 @@ namespace hear_api
 
         private IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            new AssetRegister().RegisterDependencies(new AspNetCoreAdapter(services));
+            
+            new AssetRegister().RegisterDependencies((type, provider) =>
+                services.AddTransient(type, _ => provider())
+            );
         }
-
-        class AspNetCoreAdapter : IDependencyReceiver
-        {
-            private readonly IServiceCollection _services;
-
-            public AspNetCoreAdapter(IServiceCollection services)
-            {
-                _services = services;
-            }
-
-            public void AddDependency(Type type, Func<Object> provider)
-            {
-                _services.AddTransient(type, _ => provider());
-            }
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

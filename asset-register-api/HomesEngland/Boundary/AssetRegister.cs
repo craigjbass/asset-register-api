@@ -7,10 +7,7 @@ using hear_api.HomesEngland.Gateway;
 
 namespace hear_api
 {
-    public interface IDependencyReceiver
-    {
-        void AddDependency(Type type, Func<Object> provider);
-    }
+    using IDependencyReceiver = Action<Type, Func<Object>>; 
     
     public class AssetRegister
     {
@@ -42,7 +39,7 @@ namespace hear_api
         {
             foreach(var dependency in _dependencies)
             {
-                dependencyReceiver.AddDependency(dependency.Key, dependency.Value);
+                dependencyReceiver(dependency.Key, dependency.Value);
             }
         }
     }
