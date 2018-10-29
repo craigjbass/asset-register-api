@@ -5,7 +5,7 @@ using asset_register_api.Boundary;
 using asset_register_api.Boundary.UseCase;
 using hear_api.HomesEngland.Gateway;
 
-namespace hear_api
+namespace hear_api.Boundary
 {
     using IDependencyReceiver = Action<Type, Func<Object>>; 
     

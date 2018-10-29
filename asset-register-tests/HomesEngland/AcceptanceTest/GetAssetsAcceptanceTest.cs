@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using asset_register_api.HomesEngland.Domain;
 using asset_register_api.Boundary;
 using asset_register_api.Boundary.UseCase;
-using hear_api;
+using hear_api.Boundary;
 using NUnit.Framework;
 
 namespace asset_register_tests.HomesEngland.AcceptanceTest
